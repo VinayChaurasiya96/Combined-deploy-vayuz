@@ -6,7 +6,7 @@ export const UserContext1 = createContext();
 const createUser = async (values)=>{
   
   try {
-    await fetch(`http://localhost:8001/admin/v1/user/add`, {
+    await fetch(`http://localhost:8000/admin/v1/user/add`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -25,7 +25,7 @@ const createUser = async (values)=>{
 const getUsers = async () => {
   var users = [];
   try{
-    await fetch(`http://localhost:8001/admin/v1/user/allusers`)
+    await fetch(`http://localhost:8000/admin/v1/user/allusers`)
           .then((res) => res.json())
           .then((json) => {
             users = json
@@ -40,7 +40,7 @@ const getUsers = async () => {
 const getSingleUser = async (userId) => {
   var user = {};
   try{
-    await fetch(`http://localhost:8001/admin/v1/user/${userId}`)
+    await fetch(`http://localhost:8000/admin/v1/user/${userId}`)
           .then((res) => res.json())
           .then((json) => {
             user = json
@@ -54,7 +54,7 @@ const getSingleUser = async (userId) => {
 
 const updateUser = async (userId,values)=>{
   try {
-    await fetch(`http://localhost:8001/admin/v1/user/update/${userId}`, {
+    await fetch(`http://localhost:8000/admin/v1/user/update/${userId}`, {
       method: "PUT",
       body: JSON.stringify(values),
       headers: {
@@ -72,7 +72,7 @@ const updateUser = async (userId,values)=>{
 const deleteUser = async(id)=>{
   try{
      // Simple DELETE request with fetch
-     await fetch(`http://localhost:8001/admin/v1/user/delete/${id}`, { method: 'DELETE' });
+     await fetch(`http://localhost:8000/admin/v1/user/delete/${id}`, { method: 'DELETE' });
     }
   catch(err){
 

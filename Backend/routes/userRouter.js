@@ -21,7 +21,9 @@ function handleError(err, res){
 //create user route
 userRouter.route("/add").post(async (req,res)=>{
   let userData = new User(req.body);
+  
   try{
+    // hashing password | using bcrypt 
     let saveUser = await userData.save();
     res.json(saveUser);
   } 
@@ -34,7 +36,7 @@ userRouter.route("/add").post(async (req,res)=>{
 userRouter.route("/allusers").get(async (req,res)=>{
  try{
   let allusers = await User.find();
-  res.send(allusers);
+  res.json(allusers);
  }
   catch(err){
   handleError(err, res);
@@ -46,7 +48,7 @@ userRouter.route("/allusers").get(async (req,res)=>{
     try{
       let userId = req.params.id;
       const singleUserData = await User.findById(userId)
-      res.send(singleUserData)
+      res.json(singleUserData)
     }
     catch(err){
       handleError(err, res)
@@ -62,7 +64,7 @@ userRouter.route("/allusers").get(async (req,res)=>{
       {...req.body},{new:true}
       )
   
-    res.send({updateData})
+    res.json({updateData})
   }
   catch(err){
     handleError(err, res)
@@ -76,7 +78,7 @@ userRouter.route("/allusers").get(async (req,res)=>{
     let userId = req.params.id;
     const id = await User.findById(userId)
     await User.deleteOne({ _id: userId})
-    res.send(userId)
+    res.json(userId)
   }
   catch(err){
    handleError(err, res)

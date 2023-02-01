@@ -11,7 +11,7 @@ import { UserContext1 } from "../context/userContext";
 import {Link} from 'react-router-dom';
 
 export default function Users() {
-  console.log(process.env.REACT_APP_API_URI)
+ 
   const [user, setUser] = React.useState([]);
   const {getUsers, updateUser,deleteUser} = useContext(UserContext1)
 
