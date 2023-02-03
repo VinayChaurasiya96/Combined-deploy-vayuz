@@ -4,12 +4,13 @@ var cors = require('cors')
 const mongoose = require("mongoose");
 const userRouter = require('./routes/userRouter.js');
 const path = require("path")
+const userSignupMiddleware = require("./middlewares/auth")
 
 //initialization app
 const app = express();
 require("dotenv").config();
 
-// middleware 
+//middleware
 app.use(express.json());
 app.use(cors());
 
@@ -29,13 +30,16 @@ mongoose.connect(process.env.MONGO_URL, (err, client) => {
   }
 });
 
+// @Merging both server 
 
   app.use(express.static(path.join(__dirname, "../Frontend/build")));
 
-  app.get("*", (req, res) =>
-    res.sendFile(path.resolve(__dirname, "../Frontend", "build", "index.html"))
-  )
+  // app.get("*", (req, res) =>
+  //   res.sendFile(path.resolve(__dirname, "../Frontend", "build", "index.html"))
+  // )
 
+//@ middlware | middleware
+// app.use(userSignupMiddleware)
 //routes
 app.use("/admin/v1/user",userRouter)
 

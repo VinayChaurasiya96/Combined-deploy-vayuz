@@ -1,5 +1,6 @@
 import * as Yup from 'yup'
 
+//@ Validation Schemas | Using Yup library
 export const signupSchema = Yup.object({
     username: Yup.string().min(2).max(25).required("please enter your name"),
     email: Yup.string().email().required("Please enter your email"),

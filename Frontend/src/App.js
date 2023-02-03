@@ -8,7 +8,7 @@ import UserContext from './context/userContext';
 
 function App() {
 
-  
+  console.log(process.env.REACT_APP_URI)
   return (
     <>
        <UserContext >

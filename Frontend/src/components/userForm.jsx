@@ -1,16 +1,12 @@
-import React from "react";
-// import {useState} from "react";
-// import { useContext } from "react";
-// import userContext from "../context/userContext";
+import React,{ useEffect,useContext }  from "react";
 import {useFormik} from 'formik'
 import { signupSchema } from "../validationSchemas";
 import { UserContext1 } from "../context/userContext";
-import { useContext } from "react";
 import { useNavigate, Link, useParams } from "react-router-dom";
-import { useEffect } from "react";
-import { useState } from "react";
 
 
+
+// @desc object for initial value
 const initialValues = {
   username: "",
   email: "",
@@ -19,27 +15,31 @@ const initialValues = {
 }
 
 function UserForm() {
+
   const Navigate = useNavigate();
-  const [singleUser, setSingleUser] = useState();
+
+  //@desc useContext hook | for using provided values from context 
   const {createUser, getSingleUser, updateUser} = useContext(UserContext1);
  
   let {id} = useParams();
 
+  // @desc Get single user details context and set initial values
   const getAndSetSingleUser = async () => {
     const user = await getSingleUser(id);
-    setSingleUser(user);
     initialValues.username = user.username
     initialValues.email = user.email
     initialValues.password = user.password
     initialValues.level = user.level
   }
 
+  
   useEffect(()=>{
     if(id){
       getAndSetSingleUser();
     }
   },[])
 
+ //@Validation | using formik librabry 
   useEffect( () => () => {
     initialValues.username = ""
     initialValues.email = ""
@@ -60,8 +60,6 @@ function UserForm() {
     }
   })
  
-
-
   return (
     <>
       <div className="form-main">

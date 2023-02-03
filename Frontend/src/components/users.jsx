@@ -11,24 +11,32 @@ import { UserContext1 } from "../context/userContext";
 import {Link} from 'react-router-dom';
 
 export default function Users() {
- 
+  
+  //@ desc Storing all users data  
   const [user, setUser] = React.useState([]);
   const {getUsers, updateUser,deleteUser} = useContext(UserContext1)
 
+  // desc Get user data from context and set to users state
   const getAndSetUser = async () => {
     const contextUser = await getUsers();
     setUser(contextUser);
   }
  
+
   React.useEffect(()=>{
     getAndSetUser();
   },[]);
 
+// @desc Update user-status onclicking Active and In-Active Buttons
+// @Handler Update User-Status
   const handleUpdateStatus = async (singleUser) =>{
     await updateUser(singleUser._id, {'status' : !singleUser.status}).then(()=>{
       getAndSetUser();
     })
   };
+
+// @desc Delete user onclicking Delete button 
+// @Handler Delete-User
   const handleDeleteUser = async (singleUser) =>{
     await deleteUser(singleUser._id).then(()=>{
       getAndSetUser();
@@ -41,6 +49,7 @@ export default function Users() {
       <div className='add_user'>
         <Link className='btn' to="/create-user" >Add User</Link>
       </div>
+      
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
